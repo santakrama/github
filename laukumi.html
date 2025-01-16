@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Figūru laukumu aprēķinātājs</title>
+</head>
+<body>
+    <h1>Figūru laukumu aprēķinātājs</h1>
+    <p>Izvēlies figūru un ievadi nepieciešamos datus, lai aprēķinātu tās laukumu:</p>
+
+    <label for="figure">Izvēlies figūru:</label>
+    <select id="figure" onchange="updateInputs()">
+        <option value="circle">Riņķis</option>
+        
+    </select>
+    <br><br>
+
+    <div id="inputs">
+        <!-- Šeit tiks dinamiski parādīti ievades lauki atkarībā no izvēlētās figūras -->
+    </div>
+
+    <button onclick="calculateArea()">Aprēķināt laukumu</button>
+    <br><br>
+    <h2 id="result">Rezultāts: </h2>
+
+<script>
+    // Atjauno ievades laukus atkarībā no izvēlētās figūras
+    function updateInputs() {
+        const figure = document.getElementById("figure").value;
+        const inputsDiv = document.getElementById("inputs");
+        let html = '';
+
+        if (figure === "circle") {
+            html = `
+                <label for="radius">Rādiuss (r): </label>
+                <input type="number" id="radius" placeholder="Ievadi rādiusu">
+                <br>
+            `;
+        } 
+        inputsDiv.innerHTML = html;
+    }
+
+    // Aprēķina laukumu
+    function calculateArea() {
+        const figure = document.getElementById("figure").value;
+        let area = 0;
+
+        if (figure === 'circle') {
+            const radius = parseFloat(document.getElementById("radius").value);
+            if (isNaN(radius) || radius <= 0) {
+                document.getElementById("result").innerHTML = "Lūdzu, ievadiet derīgu rādiusu.";
+                return;
+            }
+            area = Math.PI * radius * radius;
+        } 
+           
+        document.getElementById("result").innerHTML = `Rezultāts: ${area.toFixed(2)} kvadrātvienības.`;
+    }
+
+    // Sākotnējā ievades lauku uzstādīšana
+    updateInputs();
+</script>
+</body>
+</html>
