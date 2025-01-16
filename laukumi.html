@@ -12,6 +12,7 @@
     <label for="figure">Izvēlies figūru:</label>
     <select id="figure" onchange="updateInputs()">
         <option value="circle">Riņķis</option>
+        <option value="rectangle">Taisnstūris</option>
         
     </select>
     <br><br>
@@ -38,7 +39,19 @@
                 <br>
             `;
         } 
-        inputsDiv.innerHTML = html;
+        else if (figure == 'rectangle'){
+            html = `
+                <label for="width">Width (w): </label>
+                <input type="number" id="rectangle" placeholder="Ievadi platumu">
+                <br>
+                `;
+
+                html = `
+                <label for="garums">Garums(g): </label>
+                <input type="number" id="rectangle" placeholder="Ievadi garumu">
+                <br>
+            `;
+    }
     }
 
     // Aprēķina laukumu
@@ -56,11 +69,22 @@
         } 
            
         document.getElementById("result").innerHTML = `Rezultāts: ${area.toFixed(2)} kvadrātvienības.`;
-    }
 
+        if (figure == 'rectangle') {
+            const width = parseFloat(document.getElementById("rectangle").value);
+            const length = parseFloat(document.getElementById("rectangle").value);
+            if(isNaN(length) || length <= 0 || isNaN(width) || width <= 0){
+            document.getElementById("result"),innerHTML = "Lūdzu, ievadiet darīgus garumu un platumu.";
+            return;
+           }
+           area = lenght + width;
+         }
+         inputsDiv.innerHTML = html;
+         document.getElementById("result").innerHTML = `Rezultāts: ${area.toFixed(2)} kvadrātvienības.`;
+    }
+    
     // Sākotnējā ievades lauku uzstādīšana
     updateInputs();
-    document.write("test")
 </script>
 </body>
 </html>
